@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';">
+    <link href="{{styleResetUri}}" rel="stylesheet">
+    <link href="{{styleVSCodeUri}}" rel="stylesheet">
+    <link href="{{stylesUri}}" rel="stylesheet">
+    <title>YAML Structure Editor</title>
+</head>
+<body>
+    <div class="editor-container">
+        <header class="editor-header">
+            <h1>🔧 YAML Field Editor</h1>
+            <div id="statusMessage" class="status-message"></div>
+        </header>
+        
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button type="button" id="editModeBtn" class="mode-btn active">✏️ Edit Existing</button>
+            <button type="button" id="addModeBtn" class="mode-btn">➕ Add New Field</button>
+        </div>
+        
+        <form id="fieldForm" class="field-form">
+            <!-- Edit Mode Fields -->
+            <div id="editModeFields" class="mode-section">
+                <div class="field-container">
+                    <label for="path">YAML Path:</label>
+                    <div class="path-display" id="pathDisplay">Select a field from the tree view</div>
+                    <div class="hover-tooltip" id="pathTooltip">Full YAML path to this field</div>
+                </div>
+            </div>
+            
+            <!-- Add Mode Fields -->
+            <div id="addModeFields" class="mode-section hidden">
+                <div class="field-container">
+                    <label>Context:</label>
+                    <div class="path-display" id="contextDisplay">Select a location in the tree or editor</div>
+                    <div class="auto-save-indicator">New fields will be added relative to this location</div>
+                </div>
+                
+                <div class="field-container" id="fieldNameContainer">
+                    <label for="newFieldName">New Field Name:</label>
+                    <input type="text" id="newFieldName" placeholder="Enter field name (e.g., new-property)" class="new-field-name">
+                    <div class="auto-save-indicator">Enter the name for the new field</div>
+                </div>
+                
+                <div class="field-container hidden" id="arrayItemContainer">
+                    <div class="auto-save-indicator">💡 Adding new item to array - no field name needed, just specify the value and type</div>
+                </div>
+            </div>
+            
+            <!-- Common Fields -->
+            <div class="field-container">
+                <label for="value">Value:</label>
+                <textarea id="value" placeholder="Enter the value for this field"></textarea>
+                <div class="hover-tooltip" id="valueTooltip">The actual value that will be stored in the YAML file</div>
+                <div class="auto-save-indicator">Changes auto-save when you finish editing</div>
+            </div>
+            
+            <div class="field-container">
+                <label for="type">Type:</label>
+                <select id="type">
+                    <option value="string">String</option>
+                    <option value="number">Number</option>
+                    <option value="boolean">Boolean</option>
+                    <option value="object">Object</option>
+                    <option value="array">Array</option>
+                    <option value="null">Null</option>
+                </select>
+                <div class="hover-tooltip" id="typeTooltip">Determines how the value will be interpreted in YAML</div>
+            </div>
+            
+            <div class="button-group">
+                <!-- Edit Mode Buttons -->
+                <div id="editModeButtons" class="button-set">
+                    <button type="button" id="updateBtn" class="primary-btn">💾 Update Field</button>
+                    <button type="button" id="deleteBtn" class="danger-btn">🗑️ Delete Field</button>
+                </div>
+                
+                <!-- Add Mode Buttons -->
+                <div id="addModeButtons" class="button-set hidden">
+                    <button type="button" id="addBtn" class="primary-btn">➕ Add New Field</button>
+                    <button type="button" id="cancelAddBtn" class="secondary-btn">❌ Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "../dist/src",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "declaration": false,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    
+    // Type checking options
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "exactOptionalPropertyTypes": false,
+    
+    // Advanced options
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "../media",
+    "../dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

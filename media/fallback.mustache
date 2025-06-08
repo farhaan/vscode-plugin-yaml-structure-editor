@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';">
+    <title>{{appTitle}}</title>
+    <style>
+        /* Inline styles for maximum reliability */
+        body { 
+            font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif); 
+            padding: 20px; 
+            color: var(--vscode-foreground, #cccccc);
+            background-color: var(--vscode-editor-background, #1e1e1e);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .error-section {
+            color: var(--vscode-errorForeground, #f14c4c);
+            padding: 20px;
+            border: 2px solid var(--vscode-errorBorder, #f14c4c);
+            border-radius: 8px;
+            background-color: var(--vscode-inputValidation-errorBackground, rgba(241, 76, 76, 0.1));
+            margin-bottom: 20px;
+        }
+        
+        .error-section h2 { 
+            margin-top: 0; 
+            color: var(--vscode-errorForeground, #f14c4c);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-section {
+            background-color: var(--vscode-textCodeBlock-background, rgba(255, 255, 255, 0.1));
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--vscode-textLink-foreground, #3794ff);
+            margin-bottom: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            background-color: var(--vscode-button-background, #0e639c);
+            color: var(--vscode-button-foreground, #ffffff);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--vscode-button-hoverBackground, #1177bb);
+        }
+        
+        .btn-secondary {
+            background-color: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.1));
+            color: var(--vscode-button-secondaryForeground, #cccccc);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--vscode-button-secondaryHoverBackground, rgba(255, 255, 255, 0.2));
+        }
+        
+        ul { 
+            margin: 10px 0; 
+            padding-left: 20px;
+        }
+        
+        li { 
+            margin: 8px 0; 
+        }
+        
+        code {
+            background-color: var(--vscode-textPreformat-background, rgba(255, 255, 255, 0.1));
+            color: var(--vscode-textPreformat-foreground, #d7ba7d);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: var(--vscode-editor-font-family, 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace);
+            font-size: 0.9em;
+        }
+        
+        .file-list {
+            background-color: var(--vscode-editor-background, #1e1e1e);
+            border: 1px solid var(--vscode-input-border, #3c3c3c);
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-family: var(--vscode-editor-font-family, monospace);
+            font-size: 0.9em;
+        }
+        
+        .file-icon {
+            font-size: 1.2em;
+        }
+        
+        .instructions h3 {
+            color: var(--vscode-textLink-foreground, #3794ff);
+            margin-top: 0;
+        }
+        
+        .debug-section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: var(--vscode-editor-background, #252526);
+            border: 1px solid var(--vscode-input-border, #3c3c3c);
+            border-radius: 4px;
+        }
+        
+        .debug-section details {
+            margin-top: 10px;
+        }
+        
+        .debug-section summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--vscode-textLink-foreground, #3794ff);
+        }
+        
+        .debug-section pre {
+            background-color: var(--vscode-textCodeBlock-background, rgba(255, 255, 255, 0.1));
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.8em;
+            color: var(--vscode-textPreformat-foreground, #d7ba7d);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-section">
+            <h2>
+                <span>⚠️</span>
+                Template Loading Error
+            </h2>
+            <p>Could not load the main webview template files. The {{appTitle}} requires template files to function properly.</p>
+        </div>
+        
+        <div class="info-section instructions">
+            <h3>🛠️ How to Fix This:</h3>
+            <ul>
+                <li><strong>Check media folder:</strong> Ensure the <code>media/</code> folder exists in your extension directory</li>
+                <li><strong>Required files:</strong>
+                    <div class="file-list">
+                        <div class="file-item">
+                            <span class="file-icon">📄</span>
+                            <code>media/webview.mustache</code>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">🎨</span>
+                            <code>media/webview.css</code>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">⚡</span>
+                            <code>media/webview.js</code>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">🔄</span>
+                            <code>media/fallback.html</code> (this file)
+                        </div>
+                    </div>
+                </li>
+                <li><strong>File permissions:</strong> Ensure VS Code can read the template files</li>
+                <li><strong>Extension installation:</strong> Try reinstalling the extension</li>
+                <li><strong>Development mode:</strong> Check the console for detailed error messages</li>
+            </ul>
+            
+            <div class="button-group">
+                <button class="btn" onclick="location.reload()">🔄 Retry Loading</button>
+                <button class="btn btn-secondary" onclick="openExtensionFolder()">📁 Open Extension Folder</button>
+                <button class="btn btn-secondary" onclick="clearCache()">🗑️ Clear Template Cache</button>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h3>📝 Minimal Editor (Fallback Mode)</h3>
+            <p>You can still edit YAML files using the basic functionality:</p>
+            <ul>
+                <li><strong>Tree view:</strong> Navigate YAML structure in the sidebar</li>
+                <li><strong>Context menus:</strong> Right-click items for available actions</li>
+                <li><strong>Direct editing:</strong> Edit files directly in the text editor</li>
+                <li><strong>Command palette:</strong> Use <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code>) for YAML commands</li>
+            </ul>
+        </div>
+
+        {{#showDebugInfo}}
+        <div class="debug-section">
+            <h3>🐛 Debug Information</h3>
+            <p><strong>Timestamp:</strong> {{timestamp}}</p>
+            <p><strong>Version:</strong> {{version}}</p>
+            
+            <details>
+                <summary>📊 Detailed Debug Data</summary>
+                <pre>{{debugData}}</pre>
+            </details>
+        </div>
+        {{/showDebugInfo}}
+    </div>
+
+    <script nonce="{{nonce}}">
+        const vscode = acquireVsCodeApi();
+        
+        console.log('🔄 YAML Editor fallback mode active');
+        console.log('📅 Loaded at:', '{{timestamp}}');
+        
+        function openExtensionFolder() {
+            vscode.postMessage({ 
+                type: 'openExtensionFolder',
+                timestamp: new Date().toISOString()
+            });
+        }
+        
+        function clearCache() {
+            vscode.postMessage({ 
+                type: 'clearTemplateCache',
+                timestamp: new Date().toISOString()
+            });
+            
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Cache Cleared';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+        
+        // Basic message handling for fallback mode
+        window.addEventListener('message', event => {
+            const message = event.data;
+            console.log('📨 Fallback webview received message:', message);
+            
+            switch (message.type) {
+                case 'templateReloaded':
+                    console.log('🔄 Templates reloaded, attempting refresh...');
+                    setTimeout(() => location.reload(), 500);
+                    break;
+                    
+                case 'cacheCleared':
+                    console.log('🗑️ Template cache cleared');
+                    break;
+            }
+        });
+        
+        // Auto-retry every 30 seconds in development mode
+        {{#showDebugInfo}}
+        setInterval(() => {
+            console.log('🔄 Auto-retry in development mode...');
+            location.reload();
+        }, 30000);
+        {{/showDebugInfo}}
+    </script>
+</body>
+</html>
