@@ -1,0 +1,263 @@
+/* === Base Layout === */
+body {
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+    color: var(--vscode-foreground);
+    background-color: var(--vscode-editor-background);
+    padding: 20px;
+    margin: 0;
+}
+
+.editor-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* === Header === */
+.editor-header {
+    margin-bottom: 20px;
+}
+
+.editor-header h1 {
+    color: var(--vscode-titleBar-activeForeground);
+    border-bottom: 1px solid var(--vscode-titleBar-border);
+    padding-bottom: 10px;
+    margin: 0 0 15px 0;
+}
+
+/* === Status Messages === */
+.status-message {
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    display: none;
+    font-weight: 500;
+}
+
+.status-success {
+    background-color: var(--vscode-testing-iconPassed);
+    color: var(--vscode-testing-message-info-foreground);
+}
+
+.status-error {
+    background-color: var(--vscode-testing-iconFailed);
+    color: var(--vscode-testing-message-error-foreground);
+}
+
+/* === Mode Toggle === */
+.mode-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--vscode-widget-border);
+    padding-bottom: 15px;
+}
+
+.mode-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--vscode-input-border);
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    background-color: var(--vscode-inputOption-hoverBackground);
+}
+
+.mode-btn.active {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border-color: var(--vscode-button-background);
+}
+
+/* === Form Layout === */
+.field-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mode-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.field-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* === Form Controls === */
+label {
+    font-weight: 600;
+    color: var(--vscode-input-foreground);
+    font-size: 0.9em;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--vscode-input-border);
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--vscode-focusBorder);
+    box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.new-field-name {
+    font-family: var(--vscode-editor-font-family, monospace);
+}
+
+/* === Path Display === */
+.path-display {
+    background-color: var(--vscode-textCodeBlock-background);
+    border: 1px solid var(--vscode-textSeparator-foreground);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-family: var(--vscode-editor-font-family, monospace);
+    font-size: 0.9em;
+    color: var(--vscode-textPreformat-foreground);
+    word-break: break-all;
+    cursor: default;
+}
+
+/* === Buttons === */
+.button-group {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--vscode-widget-border);
+}
+
+.button-set {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.primary-btn {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+}
+
+.primary-btn:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.secondary-btn {
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+}
+
+.secondary-btn:hover {
+    background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.danger-btn {
+    background-color: var(--vscode-testing-iconFailed);
+    color: white;
+}
+
+.danger-btn:hover {
+    background-color: #d73a49;
+    transform: translateY(-1px);
+}
+
+/* === Tooltips === */
+.hover-tooltip {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    background: var(--vscode-editorHoverWidget-background);
+    border: 1px solid var(--vscode-editorHoverWidget-border);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 0.85em;
+    color: var(--vscode-editorHoverWidget-foreground);
+    z-index: 1000;
+    box-shadow: 0 4px 12px var(--vscode-widget-shadow);
+    display: none;
+    pointer-events: none;
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.hover-tooltip.show {
+    display: block;
+    opacity: 1;
+}
+
+/* === Helper Text === */
+.auto-save-indicator {
+    font-size: 0.8em;
+    color: var(--vscode-descriptionForeground);
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* === Utility Classes === */
+.hidden {
+    display: none !important;
+}
+
+/* === Special States === */
+.add-mode .path-display {
+    background-color: var(--vscode-merge-incomingHeaderBackground);
+    border-color: var(--vscode-merge-incomingContentBackground);
+}
+
+/* === Responsive Design === */
+@media (max-width: 480px) {
+    .editor-container {
+        padding: 10px;
+    }
+    
+    .button-set {
+        flex-direction: column;
+    }
+    
+    button {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .mode-toggle {
+        flex-direction: column;
+    }
+}

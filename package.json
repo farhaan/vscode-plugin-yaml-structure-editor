@@ -1,0 +1,149 @@
+{
+  "name": "yaml-structure-editor",
+  "displayName": "YAML Structure Editor",
+  "description": "Visual YAML editing with tree view and webview editor",
+  "version": "1.0.0",
+  "publisher": "yaml-editor",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other",
+    "Formatters",
+    "Visualization"
+  ],
+  "keywords": [
+    "yaml",
+    "editor",
+    "tree",
+    "visual",
+    "structure"
+  ],
+  "activationEvents": [
+    "onLanguage:yaml",
+    "onLanguage:yml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "yamlStructure",
+          "name": "YAML Structure",
+          "when": "resourceExtname == .yaml || resourceExtname == .yml"
+        }
+      ]
+    },
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "yamlUpdater.addArrayItem",
+          "when": "view == yamlStructure && viewItem == yamlArray",
+          "group": "modification@1"
+        },
+        {
+          "command": "yamlUpdater.addContextualField",
+          "when": "view == yamlStructure && viewItem == yamlContainer",
+          "group": "modification@1"
+        },
+        {
+          "command": "yamlUpdater.addContextualField",
+          "when": "view == yamlStructure && viewItem == yamlArray",
+          "group": "modification@2"
+        },
+        {
+          "command": "yamlUpdater.editField",
+          "when": "view == yamlStructure && viewItem == yamlValue",
+          "group": "modification@1"
+        },
+        {
+          "command": "yamlUpdater.editField",
+          "when": "view == yamlStructure && (viewItem == yamlContainer || viewItem == yamlArray)",
+          "group": "modification@3"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "yamlUpdater.refresh",
+          "when": "view == yamlStructure",
+          "group": "navigation@1"
+        },
+        {
+          "command": "yamlUpdater.openEditor",
+          "when": "view == yamlStructure",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "yamlUpdater.openEditor",
+        "title": "Open YAML Editor",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "yamlUpdater.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "yamlUpdater.editField",
+        "title": "Edit Field",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "yamlUpdater.addRootField",
+        "title": "Add New Field",
+        "icon": "$(add)"
+      },
+      {
+        "command": "yamlUpdater.addContextualField",
+        "title": "Add New Field",
+        "icon": "$(add)"
+      },
+      {
+        "command": "yamlUpdater.addArrayItem",
+        "title": "Add Array Item",
+        "icon": "$(symbol-array)"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run clean && npm run compile:extension && npm run compile:webview",
+    "compile:extension": "tsc -p ./tsconfig.json",
+    "compile:webview": "tsc -p ./media/tsconfig.json",
+    "watch": "concurrently \"npm run watch:extension\" \"npm run watch:webview\"",
+    "watch:extension": "tsc -watch -p ./tsconfig.json",
+    "watch:webview": "tsc -watch -p ./media/tsconfig.json",
+    "clean": "rimraf dist",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "install-local": "code --install-extension yaml-structure-editor-1.0.0.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.28.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "yaml": "^2.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/yaml-structure-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/yaml-structure-editor/issues"
+  },
+  "homepage": "https://github.com/your-username/yaml-structure-editor#readme",
+  "license": "MIT"
+}
